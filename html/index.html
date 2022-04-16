@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+		<meta http-equiv="x-ua-compatible" content="ie=edge" />
+		<title>faceMash</title>
+		<!-- Font Awesome -->
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+			rel="stylesheet"
+		/>
+		<!-- Google Fonts -->
+		<link
+			href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+			rel="stylesheet"
+		/>
+		<!-- MDB -->
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<!--Main layout-->
+		<main class="my-5">
+			<div class="container">
+				<!--Section: Content-->
+				<section class="text-center">
+					<h1 class="mb-5"><strong>faceMash</strong></h1>
+					<a href="/ranking"
+						><h4 class="mb-5"><strong>rankings</strong></h4></a
+					>
+					<div class="row">
+						<div class="col-lg-6 mb-4">
+							<div class="card">
+								<div
+									class="bg-image hover-overlay ripple"
+									data-mdb-ripple-color="light"
+								>
+									<img src="{{.SrcOne}}" class="img-fluid" />
+									<a href="#!">
+										<div
+											class="mask"
+											style="background-color: rgba(251, 251, 251, 0.15)"
+										></div>
+									</a>
+								</div>
+								<div class="card-body">
+									<a
+										href="#!"
+										onclick="vote(`{{.EnumOne}}`,`{{.EnumTwo}}`)"
+										class="btn btn-primary"
+										>vote</a
+									>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-6 mb-4">
+							<div class="card">
+								<div
+									class="bg-image hover-overlay ripple"
+									data-mdb-ripple-color="light"
+								>
+									<img src="{{.SrcTwo}}" class="img-fluid" />
+									<a href="#!">
+										<div
+											class="mask"
+											style="background-color: rgba(251, 251, 251, 0.15)"
+										></div>
+									</a>
+								</div>
+								<div class="card-body">
+									<a
+										href="#!"
+										onclick="vote(`{{.EnumTwo}}`,`{{.EnumOne}}`)"
+										class="btn btn-primary"
+										>vote</a
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!--Section: Content-->
+			</div>
+		</main>
+		<!--Main layout-->
+
+		<!--Footer-->
+		<footer class="bg-light text-lg-start">
+			<!-- Copyright -->
+			<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+				© 2022 Copyright:
+				<a class="text-dark" href="https://youtu.be/4v8ek9TEeOU?t=41"
+					>DevHour</a
+				>
+			</div>
+			<!-- Copyright -->
+		</footer>
+		<!--Footer-->
+		<!-- MDB -->
+		<script
+			type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"
+		></script>
+		<!-- Custom scripts -->
+		<script>
+			function vote(w, l) {
+				var myHeaders = new Headers();
+				w = w.replace(/\s/g, "");
+				l = l.replace(/\s/g, "");
+				myHeaders.append("w", w);
+				myHeaders.append("l", l);
+
+				var requestOptions = {
+					method: "GET",
+					headers: myHeaders,
+					redirect: "follow",
+				};
+
+				fetch("/vote", requestOptions)
+					.then((response) => {
+						if (response.status == 200) {
+							location.reload();
+						}
+					})
+					.then((result) => console.log(result))
+					.catch((error) => console.log("error", error));
+			}
+		</script>
+	</body>
+</html>
