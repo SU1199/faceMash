@@ -113,7 +113,7 @@ func UpdateRanking(w, l string) error {
 
 	log.Println(winnerEnum, wNew, loserEnum, lNew)
 
-	update := "UPDATE elo SET rating=$1 WHERE enum=$2;"
+	update := "UPDATE elo SET rating=$1 , games_played = games_played + 1 WHERE enum=$2;"
 	updateStmt, err := DBCon.Prepare(update)
 	if err != nil {
 		log.Println(err)
